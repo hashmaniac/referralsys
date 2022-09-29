@@ -13,5 +13,5 @@ $url = "http://localhost/referalsys/create-account.php";
 // e.g $_SESSION['userid'] = $username
 
 if(isset($_SESSION('userid'))) {
-    echo $url . "?refer=" . $_SESSION('userid');
+    echo $url . "?ref=" . $_SESSION('userid');
 }
