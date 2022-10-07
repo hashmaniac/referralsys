@@ -73,7 +73,7 @@ class DB {
         } 
         //no key-value order
         else {
-            $result = $this->stmt->fetch_assoc();
+            $result = $this->stmt->fetch_all();
         }
 
         //result
