@@ -33,7 +33,7 @@ class DB {
         $this->stmt->execute($data);
         $this->lastID = $this->conn->insert_id;
 
-        if ($conn->query($sql) === FALSE) {
+        if ($this->conn->query($sql) === FALSE) {
             $this->error = $this->conn->error;
             return false;
         }
@@ -94,11 +94,11 @@ class DB {
 
         if(is_callable($sort)) {
             while($row = $this->stmt->fetch_assoc()) {
-                $result[$row[$key]] = $sort($row);
+                $result = $sort($row);
             }
         } else {
             while($row = $this->stmt->fetch_assoc()) {
-                $result[$row[$key]] = $row;
+                $result = $row;
             }
         }
         
