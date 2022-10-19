@@ -6,7 +6,7 @@ class DB {
 
     function __construct () {
         // __construct(): connect to the database
-        //param: DB_HOST< DB_USER, DB_PASSWORD, DB_NAME 
+        //param: DB_HOST, DB_USER, DB_PASSWORD, DB_NAME 
 
         //Create connection
         $this->conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -51,29 +51,29 @@ class DB {
         $result = [];
 
         $this->stmt = $this->conn->prepare($sql);
-        $this->stmt = $this->conn->execute($cond);
+        $this->stmt->execute($cond);
 
         //sort in given order
         if(isset($key)) {
             if(isset($cond)) {
                 if(is_callable($cond)) {
-                    while($row = $this->stmt->fetch_assoc()) {
+                    while($row = $this->stmt->fetch(MYSQLI_ASSOC)) {
                         $result[$row[$key]] = $value($row);
                     }
                 } else {
-                    while($row = $this->stmt->fetch_assoc()) {
+                    while($row = $this->stmt->fetch(MYSQLI_ASSOC)) {
                         $result[$row[$key]] = $row[$value];
                     }
                 }
             } else {
-                while($row = $this->stmt->fetch_assoc()) {
+                while($row = $this->stmt->fetch(MYSQLI_ASSOC)) {
                     $result[$row[$key]] = $row;
                 }
             }
         } 
         //no key-value order
         else {
-            $result = $this->stmt->fetch_all();
+            $result = $this->stmt->fetch();
         }
 
         //result
@@ -90,14 +90,14 @@ class DB {
         $result = [];
 
         $this->stmt = $this->conn->prepare($sql);
-        $this->stmt = $this->conn->execute($cond);
+        $this->stmt->execute($cond);
 
         if(is_callable($sort)) {
-            while($row = $this->stmt->fetch_assoc()) {
+            while($row = $this->stmt->fetch(MYSQLI_ASSOC)) {
                 $result = $sort($row);
             }
         } else {
-            while($row = $this->stmt->fetch_assoc()) {
+            while($row = $this->stmt->fetch(MYSQLI_ASSOC)) {
                 $result = $row;
             }
         }
