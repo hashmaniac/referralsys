@@ -7,16 +7,16 @@ require PATH_LIB . "lib.php";
 $libDB = new DB();
 session_start();
 
+$rID = $_SESSION('userid');
 $oID = 23;
 $payment = 1000 ;
 $commission = (10*$payment)/100;
 $date = date("Y-m-d H:i:s");
 
-if(isset($_SESSION('userid'))) {
-    $referral = $libDB->fetch(
-        "SELECT * from `referral` WHERE `username`=?", [$_SESSION('userid')]
-    );
-}
+$referral = $libDB->fetch(
+    "SELECT * from `referral` WHERE `username`=?", [$rID]
+);
+
 if(is_array($referral)) {
     $referer = $referral['referer'];
 }
