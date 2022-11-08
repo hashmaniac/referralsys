@@ -12,6 +12,6 @@ $url = "http://localhost/referalsys/create-account.php";
 //first attach a session when login is a success on your login logic
 // e.g $_SESSION['userid'] = $username
 
-if($_SESSION('userid')) {
+if(isset($_SESSION['userid'])) {
     echo $url . "?ref=" . $_SESSION('userid');
 }

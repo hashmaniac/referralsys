@@ -13,7 +13,7 @@ $pass = $libDB->exec(
 echo $pass ? "OK" : $libDB->error;
 
 //If 'ref id' exists, insert into referral table the ref id and username of acoount being registered
-if($_GET('ref')) {
+if(isset($_GET['ref'])) {
     $referral = $libDB->fetch(
         "SELECT * from `users` WHERE `username`=?", [$_GET['ref']]
     );
